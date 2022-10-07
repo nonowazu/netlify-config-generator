@@ -1,6 +1,10 @@
+from __future__ import annotations
+from typing import TypeVar
+
 from pydantic import BaseModel
 
-from cgwain.types import Hint, Widgets
+
+Hint = tuple[str, str]
 
 
 class Widget(BaseModel):
@@ -12,6 +16,10 @@ class Widget(BaseModel):
 
     def dict(self, exclude_none=True, **kwargs):
         return super().dict(exclude_none=exclude_none, **kwargs)
+
+
+W = TypeVar('W', bound=Widget)
+Widgets = list[W]
 
 
 class StringWidget(Widget):
@@ -33,3 +41,8 @@ class MarkdownWidget(Widget):
 class ListWidget(Widget):
     widget: str = 'list'
     fields: Widgets
+
+class SelectWidget(Widget):
+    widget: str = 'select'
+    options: list[str]
+    default: list[str]

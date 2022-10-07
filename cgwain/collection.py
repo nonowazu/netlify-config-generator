@@ -1,3 +1,4 @@
+from __future__ import annotations
 from typing import Any
 
 from pydantic import BaseModel
@@ -63,3 +64,5 @@ class FileCollection(Collection):
     # This feels like a dirty hack, but it does (in theory) get rid of the normal field requirement
     fields: Widgets | None = None
     files: list[File]
+    media_folder: str # is this mandatory?
+    public_folder: str # is this also mandatory?
