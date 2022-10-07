@@ -14,7 +14,7 @@ class Collection(BaseModel):
     # TODO: all commented fields with TodoType need to be filled in
     name: str
     """unique identifier for the collection, used as the key when referenced in other contexts (like the relation widget)"""
-    # identifier_field: TodoType = ???
+    identifier_field: str | None = None
     label: str | None = None
     """label for the collection in the editor UI; defaults to the value of ``name``"""
     label_singular: str | None = None
@@ -26,7 +26,7 @@ class Collection(BaseModel):
     delete: bool | None = None
     """``False`` prevents users from deleting items in a collection; defaults to ``True``"""
     # extension: TodoType = ???
-    # format: TodoType = ???
+    format: str | None = None
     # frontmatter_delimeter: TodoType = ???
     # slug: TodoType | None = None
     # preview_path: TodoType = ???
