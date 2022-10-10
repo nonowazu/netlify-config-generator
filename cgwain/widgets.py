@@ -46,7 +46,7 @@ class ListWidget(Widget):
 class SelectWidget(Widget):
     widget: str = 'select'
     options: list[str]
-    default: list[str]
+    default: list[str] | str
 
 class ObjectWidget(Widget):
     widget: str = 'object'
