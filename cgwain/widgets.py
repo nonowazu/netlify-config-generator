@@ -4,7 +4,7 @@ from typing import TypeVar
 from pydantic import BaseModel
 
 
-Hint = tuple[str, str]
+Hint = tuple[str, str] | str # is this confused with pattern?
 
 
 class Widget(BaseModel):
@@ -30,6 +30,10 @@ class NumberWidget(Widget):
     widget: str = 'number'
 
 
+class BooleanWidget(Widget):
+    widget: str = 'boolean'
+
+
 class ColorWidget(Widget):
     widget: str = 'color'
 
@@ -43,10 +47,12 @@ class ListWidget(Widget):
     fields: Widgets
     summary: str | None = None
 
+
 class SelectWidget(Widget):
     widget: str = 'select'
     options: list[str]
-    default: list[str] | str
+    default: list[str] | str | None = None
+
 
 class ObjectWidget(Widget):
     widget: str = 'object'
@@ -54,9 +60,11 @@ class ObjectWidget(Widget):
     collapsed: bool | None = None
     fields: Widgets
 
+
 class ImageWidget(Widget):
     widget: str = 'image'
     choose_url: bool | None = None
+
 
 class RelationWidget(Widget):
     widget: str = 'relation'
@@ -65,6 +73,7 @@ class RelationWidget(Widget):
     search_fields: list[str]
     value_field: str
     display_fields: list[str] | None = None
+
 
 class DateTimeWidget(Widget):
     widget: str = 'datetime'

@@ -40,6 +40,8 @@ class Collection(BaseModel):
     # sortable_fields: TodoType = ???
     # view_filters: TodoType = ???
     # view_groups = TodoType = ???
+    media_folder: str | None = None
+    public_folder: str | None = None
 
     def __repr__(self) -> str:
         return f'<Collection:{self.__class__.__name__}>'
@@ -51,12 +53,15 @@ class FolderCollection(Collection):
     """Represents a folder collection in the netlify editor.
     For information on Folder collections, see https://www.netlifycms.org/docs/collection-types#folder-collections"""
     folder: str
+    """A path to a directory to create file(s) under"""
     # filter: TodoType = ???
     create: bool | None = None # set to true to allow creating new files; defaults to false
+    """Set to True to allow creating new files; if undefined, this value is interpreted as False"""
 
 class File(Collection):
     """Represents an individual file in a File Collection"""
     file: str
+    """The path to the file to write"""
 
 class FileCollection(Collection):
     """Represents a file collection in the netlify editor.
@@ -64,5 +69,3 @@ class FileCollection(Collection):
     # This feels like a dirty hack, but it does (in theory) get rid of the normal field requirement
     fields: Widgets | None = None
     files: list[File]
-    media_folder: str # is this mandatory?
-    public_folder: str # is this also mandatory?
