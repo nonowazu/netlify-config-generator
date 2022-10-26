@@ -6,12 +6,10 @@ from pydantic import BaseModel
 from cgwain.types import Widgets
 
     
-
 class Collection(BaseModel):
     """Represents a collection in the netlify editor.
     For information on collections, see https://www.netlifycms.org/docs/configuration-options/#collections
     """
-    # TODO: all commented fields with TodoType need to be filled in
     name: str
     """unique identifier for the collection, used as the key when referenced in other contexts (like the relation widget)"""
     identifier_field: str | None = None
@@ -21,32 +19,27 @@ class Collection(BaseModel):
     """singular label for certain elements in the editor; defaults to the value of ``label``"""
     description: str | None = None
     """optional text, displayed below the label when viewing a collection"""
-    # publish: TodoType = ???
-    # hide: TodoType = ???
     delete: bool | None = None
     """``False`` prevents users from deleting items in a collection; defaults to ``True``"""
-    # extension: TodoType = ???
     format: str | None = None
-    # frontmatter_delimeter: TodoType = ???
-    # slug: TodoType | None = None
-    # preview_path: TodoType = ???
-    # preview_path_date_field: TodoType = ???
     fields: Widgets
     """The fields option maps editor UI widgets to field-value pairs in the saved file.
     The order of the fields in your Netlify CMS config.yml file determines their order in the editor UI 
     and in the saved file."""
-    # editor: TodoType = ???
-    # summary: TodoType = ???
-    # sortable_fields: TodoType = ???
-    # view_filters: TodoType = ???
-    # view_groups = TodoType = ???
     media_folder: str | None = None
+    """Specifies the location for media files to be saved, relative to the base of the repo"""
     public_folder: str | None = None
+    """Specifies the location for media files to be accessed from the built site"""
 
     def __repr__(self) -> str:
         return f'<Collection:{self.__class__.__name__}>'
 
     def dict(self, exclude_none=True, **kwargs):
+        """Overrides pydantic's ``dict`` function to omit Nonetype values
+
+        :param exclude_none: include fields which are set to None, defaults to True
+        :return: A python dictionary representation of the pydantic object
+        """
         return super().dict(exclude_none=exclude_none, **kwargs)
 
 class FolderCollection(Collection):
@@ -69,3 +62,4 @@ class FileCollection(Collection):
     # This feels like a dirty hack, but it does (in theory) get rid of the normal field requirement
     fields: Widgets | None = None
     files: list[File]
+    """A list of cgwain.collection.File objects"""

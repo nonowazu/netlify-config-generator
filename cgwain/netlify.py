@@ -34,7 +34,7 @@ class NetlifyConfig(BaseModel):
     media_folder: str
     public_folder: str
     site_url: str | None = None
-    show_preview_links: bool | None
+    show_preview_links: bool | None = None
     collections: list[Collection] = []
     local_backend: bool | None = None
 
