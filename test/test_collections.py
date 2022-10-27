@@ -4,6 +4,7 @@ from pydantic.error_wrappers import ValidationError
 
 from cgwain.collection import Collection
 
+
 class TestBaseCollections(unittest.TestCase):
     def test_required_fields(self):
         """Fields that are required should raise an exception and be of the correct type"""
@@ -14,9 +15,6 @@ class TestBaseCollections(unittest.TestCase):
 
     def test_empty_fields(self):
         """Empty fields that have a specified default should omit them"""
-        bare_minimum = Collection(name='foo', fields=[])
-        target_dict = {
-            'name': 'foo',
-            'fields': []
-        }
+        bare_minimum = Collection(name='foo', label='foo', fields=[])
+        target_dict = {'name': 'foo', 'label': 'foo', 'fields': []}
         self.assertDictEqual(bare_minimum.dict(), target_dict)
