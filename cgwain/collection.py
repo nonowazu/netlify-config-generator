@@ -5,15 +5,16 @@ from pydantic import BaseModel
 
 from cgwain.types import Widgets
 
-    
+
 class Collection(BaseModel):
     """Represents a collection in the netlify editor.
     For information on collections, see https://www.netlifycms.org/docs/configuration-options/#collections
     """
+
     name: str
     """unique identifier for the collection, used as the key when referenced in other contexts (like the relation widget)"""
     identifier_field: str | None = None
-    label: str | None = None
+    label: str | None
     """label for the collection in the editor UI; defaults to the value of ``name``"""
     label_singular: str | None = None
     """singular label for certain elements in the editor; defaults to the value of ``label``"""
@@ -42,23 +43,29 @@ class Collection(BaseModel):
         """
         return super().dict(exclude_none=exclude_none, **kwargs)
 
+
 class FolderCollection(Collection):
     """Represents a folder collection in the netlify editor.
     For information on Folder collections, see https://www.netlifycms.org/docs/collection-types#folder-collections"""
+
     folder: str
     """A path to a directory to create file(s) under"""
     # filter: TodoType = ???
-    create: bool | None = None # set to true to allow creating new files; defaults to false
+    create: bool | None = None  # set to true to allow creating new files; defaults to false
     """Set to True to allow creating new files; if undefined, this value is interpreted as False"""
+
 
 class File(Collection):
     """Represents an individual file in a File Collection"""
+
     file: str
     """The path to the file to write"""
+
 
 class FileCollection(Collection):
     """Represents a file collection in the netlify editor.
     For information on File collections, see https://www.netlifycms.org/docs/collection-types#file-collections"""
+
     # This feels like a dirty hack, but it does (in theory) get rid of the normal field requirement
     fields: Widgets | None = None
     files: list[File]
