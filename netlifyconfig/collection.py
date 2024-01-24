@@ -1,9 +1,10 @@
+"""Collections for file entries to be placed"""
+
 from __future__ import annotations
-from typing import Any
 
 from pydantic import BaseModel
 
-from cgwain.types import Widgets
+from netlifyconfig.widgets import Widgets
 
 
 class Collection(BaseModel):
@@ -12,7 +13,8 @@ class Collection(BaseModel):
     """
 
     name: str
-    """unique identifier for the collection, used as the key when referenced in other contexts (like the relation widget)"""
+    """unique identifier for the collection, used as the key when referenced in other contexts
+    (like the relation widget)"""
     identifier_field: str | None = None
     label: str | None
     """label for the collection in the editor UI; defaults to the value of ``name``"""
@@ -25,7 +27,7 @@ class Collection(BaseModel):
     format: str | None = None
     fields: Widgets
     """The fields option maps editor UI widgets to field-value pairs in the saved file.
-    The order of the fields in your Netlify CMS config.yml file determines their order in the editor UI 
+    The order of the fields in your Netlify CMS config.yml file determines their order in the editor UI
     and in the saved file."""
     media_folder: str | None = None
     """Specifies the location for media files to be saved, relative to the base of the repo"""
@@ -35,13 +37,13 @@ class Collection(BaseModel):
     def __repr__(self) -> str:
         return f'<Collection:{self.__class__.__name__}>'
 
-    def dict(self, exclude_none=True, **kwargs):
+    def to_dict(self, exclude_none=True, **kwargs):
         """Overrides pydantic's ``dict`` function to omit Nonetype values
 
         :param exclude_none: include fields which are set to None, defaults to True
         :return: A python dictionary representation of the pydantic object
         """
-        return super().dict(exclude_none=exclude_none, **kwargs)
+        return super().model_dump(exclude_none=exclude_none, **kwargs)
 
 
 class FolderCollection(Collection):
@@ -67,6 +69,6 @@ class FileCollection(Collection):
     For information on File collections, see https://www.netlifycms.org/docs/collection-types#file-collections"""
 
     # This feels like a dirty hack, but it does (in theory) get rid of the normal field requirement
-    fields: Widgets | None = None
+    fields: Widgets | None = None  # type: ignore
     files: list[File]
-    """A list of cgwain.collection.File objects"""
+    """A list of netlifyconfig.collection.File objects"""

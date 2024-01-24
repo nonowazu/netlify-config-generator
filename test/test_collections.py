@@ -1,8 +1,8 @@
 import unittest
 
-from pydantic.error_wrappers import ValidationError
+from pydantic import ValidationError
 
-from cgwain.collection import Collection
+from netlifyconfig.collection import Collection
 
 
 class TestBaseCollections(unittest.TestCase):
@@ -17,4 +17,4 @@ class TestBaseCollections(unittest.TestCase):
         """Empty fields that have a specified default should omit them"""
         bare_minimum = Collection(name='foo', label='foo', fields=[])
         target_dict = {'name': 'foo', 'label': 'foo', 'fields': []}
-        self.assertDictEqual(bare_minimum.dict(), target_dict)
+        self.assertDictEqual(bare_minimum.to_dict(), target_dict)

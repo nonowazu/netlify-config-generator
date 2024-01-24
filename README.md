@@ -1,13 +1,13 @@
-# GCWAIN - (Netlify) config generator without an interesting name
+# Netlify Configuration Generator without an interesting name
 
 ## Example:
 
 ```python
 import yaml
 
-from cgwain.collection import FolderCollection
-from cgwain.widgets import ColorWidget, ListWidget, MarkdownWidget, NumberWidget, StringWidget
-from cgwain.types import Widgets
+from netlifyconfig.collection import FolderCollection
+from netlifyconfig.widgets import ColorWidget, ListWidget, MarkdownWidget, NumberWidget, StringWidget
+from netlifyconfig.types import Widgets
 
 class RoleMetadata(FolderCollection):
     fields: Widgets = [
@@ -30,5 +30,5 @@ class RoleMetadata(FolderCollection):
     ]
 
 r = RoleMetadata(label='Role metadata', name='role-data', folder='data/roles/')
-print(yaml.dump(r.dict()))
+print(yaml.dump(r.to_dict()))
 ```

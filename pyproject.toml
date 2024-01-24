@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 # See https://coverage.readthedocs.io/en/6.5.0/config.html for configuration options
 [tool.coverage.run]
 branch = true
-source = ["cgwain", "test"]
+source = ["netlifyconfig", "test"]
 
 [tool.black]
 line-length = 120
