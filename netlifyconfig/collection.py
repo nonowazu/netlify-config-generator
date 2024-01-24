@@ -1,6 +1,7 @@
 """Collections for file entries to be placed"""
 
 from __future__ import annotations
+from typing import Optional, List
 
 from pydantic import BaseModel
 
@@ -15,23 +16,23 @@ class Collection(BaseModel):
     name: str
     """unique identifier for the collection, used as the key when referenced in other contexts
     (like the relation widget)"""
-    identifier_field: str | None = None
-    label: str | None
+    identifier_field: Optional[str] = None
+    label: Optional[str]
     """label for the collection in the editor UI; defaults to the value of ``name``"""
-    label_singular: str | None = None
+    label_singular: Optional[str] = None
     """singular label for certain elements in the editor; defaults to the value of ``label``"""
-    description: str | None = None
+    description: Optional[str] = None
     """optional text, displayed below the label when viewing a collection"""
-    delete: bool | None = None
+    delete: Optional[bool] = None
     """``False`` prevents users from deleting items in a collection; defaults to ``True``"""
-    format: str | None = None
+    format: Optional[str] = None
     fields: Widgets
     """The fields option maps editor UI widgets to field-value pairs in the saved file.
     The order of the fields in your Netlify CMS config.yml file determines their order in the editor UI
     and in the saved file."""
-    media_folder: str | None = None
+    media_folder: Optional[str] = None
     """Specifies the location for media files to be saved, relative to the base of the repo"""
-    public_folder: str | None = None
+    public_folder: Optional[str] = None
     """Specifies the location for media files to be accessed from the built site"""
 
     def __repr__(self) -> str:
@@ -53,7 +54,7 @@ class FolderCollection(Collection):
     folder: str
     """A path to a directory to create file(s) under"""
     # filter: TodoType = ???
-    create: bool | None = None  # set to true to allow creating new files; defaults to false
+    create: Optional[bool] = None  # set to true to allow creating new files; defaults to false
     """Set to True to allow creating new files; if undefined, this value is interpreted as False"""
 
 
@@ -69,6 +70,6 @@ class FileCollection(Collection):
     For information on File collections, see https://www.netlifycms.org/docs/collection-types#file-collections"""
 
     # This feels like a dirty hack, but it does (in theory) get rid of the normal field requirement
-    fields: Widgets | None = None  # type: ignore
-    files: list[File]
+    fields: Optional[Widgets] = None  # type: ignore
+    files: List[File]
     """A list of netlifyconfig.collection.File objects"""

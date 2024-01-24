@@ -1,12 +1,12 @@
 """Definitions for Netlify widgets"""
 
 from __future__ import annotations
-from typing import TypeVar
+from typing import TypeVar, Optional, Union, Tuple, List
 
 from pydantic import BaseModel
 
 
-Hint = tuple[str, str] | str  # is this confused with pattern?
+Hint = Union[Tuple[str, str], str]  # is this confused with pattern?
 
 
 class Widget(BaseModel):
@@ -14,16 +14,16 @@ class Widget(BaseModel):
 
     # common widget options
     name: str
-    label: str | None = None  # if None, name will be sluggified
+    label: Optional[str] = None  # if None, name will be sluggified
     required: bool = False
-    hint: Hint | None = None
+    hint: Optional[Hint] = None
 
     def to_dict(self, exclude_none=True, **kwargs):
         return super().model_dump(exclude_none=exclude_none, **kwargs)
 
 
 W = TypeVar('W', bound=Widget)
-Widgets = list[W]
+Widgets = List[W]
 
 
 class StringWidget(Widget):
@@ -61,23 +61,23 @@ class ListWidget(Widget):
 
     widget: str = 'list'
     fields: Widgets
-    summary: str | None = None
+    summary: Optional[str] = None
 
 
 class SelectWidget(Widget):
     """Widget that allows for selection of various predefined (string) options"""
 
     widget: str = 'select'
-    options: list[str]
-    default: list[str] | str | None = None
+    options: List[str]
+    default: Union[List[str], str, None] = None
 
 
 class ObjectWidget(Widget):
     """Widget that represents an object represented with fields as other widgets"""
 
     widget: str = 'object'
-    summary: str | None = None
-    collapsed: bool | None = None
+    summary: Optional[str] = None
+    collapsed: Optional[bool] = None
     fields: Widgets
 
 
@@ -85,23 +85,23 @@ class ImageWidget(Widget):
     """Widget that allows selection of an image"""
 
     widget: str = 'image'
-    choose_url: bool | None = None
+    choose_url: Optional[bool] = None
 
 
 class RelationWidget(Widget):
     """Widget that allows drawing relations with other collections"""
 
     widget: str = 'relation'
-    multiple: bool | None = None
+    multiple: Optional[bool] = None
     collection: str
-    search_fields: list[str]
+    search_fields: List[str]
     value_field: str
-    display_fields: list[str] | None = None
+    display_fields: Optional[List[str]] = None
 
 
 class DateTimeWidget(Widget):
     """Widget that allows the input of a date field"""
 
     widget: str = 'datetime'
-    date_format: str | None = None
-    time_format: bool | None = None
+    date_format: Optional[str] = None
+    time_format: Optional[bool] = None
