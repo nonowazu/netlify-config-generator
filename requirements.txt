@@ -1,2 +1,1 @@
-pydantic==2.5.3
-typing_extensions==4.9.0
+pydantic>=1.1,<2.0
