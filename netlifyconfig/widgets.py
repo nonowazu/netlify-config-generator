@@ -18,8 +18,8 @@ class Widget(BaseModel):
     required: bool = False
     hint: Optional[Hint] = None
 
-    def to_dict(self, exclude_none=True, **kwargs):
-        return super().model_dump(exclude_none=exclude_none, **kwargs)
+    def dict(self, exclude_none=True, **kwargs):
+        return super().dict(exclude_none=exclude_none, **kwargs)
 
 
 W = TypeVar('W', bound=Widget)

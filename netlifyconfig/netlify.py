@@ -29,8 +29,8 @@ class Backend(BaseModel):
     cms_label_prefix: Optional[str] = None
     """Pull (or Merge) Requests label prefix when using editorial workflow. Optional."""
 
-    def to_dict(self, exclude_none=True, **kwargs):
-        return super().model_dump(exclude_none=exclude_none, **kwargs)
+    def dict(self, exclude_none=True, **kwargs):
+        return super().dict(exclude_none=exclude_none, **kwargs)
 
 
 class NetlifyConfig(BaseModel):
@@ -45,5 +45,5 @@ class NetlifyConfig(BaseModel):
     collections: list[Collection] = []
     local_backend: Optional[bool] = None
 
-    def to_dict(self, exclude_none=True, **kwargs):
-        return super().model_dump(exclude_none=exclude_none, **kwargs)
+    def dict(self, exclude_none=True, **kwargs):
+        return super().dict(exclude_none=exclude_none, **kwargs)
