@@ -38,13 +38,13 @@ class Collection(BaseModel):
     def __repr__(self) -> str:
         return f'<Collection:{self.__class__.__name__}>'
 
-    def to_dict(self, exclude_none=True, **kwargs):
+    def dict(self, exclude_none=True, **kwargs):
         """Overrides pydantic's ``dict`` function to omit Nonetype values
 
         :param exclude_none: include fields which are set to None, defaults to True
         :return: A python dictionary representation of the pydantic object
         """
-        return super().model_dump(exclude_none=exclude_none, **kwargs)
+        return super().dict(exclude_none=exclude_none, **kwargs)
 
 
 class FolderCollection(Collection):
